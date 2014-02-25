@@ -1,0 +1,10 @@
+extend layout
+
+block content
+
+  h2 List of Blogs
+
+  each blog in blogs.results
+    h4 #{blog.title} - #{blog.author}
+    p #{blog.body}
+    a(href="/post/#{blog._id}") View More...

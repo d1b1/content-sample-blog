@@ -1,4 +1,4 @@
-content-sample-blog
+Sampe Blog using Content API
 ===================
+This is a sample blog using the Content API. 
 
-Sample Blog using the Content API.

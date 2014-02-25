@@ -1,0 +1,36 @@
+{
+  "name": "content-sample-blog",
+  "version": "0.0.1",
+  "description": "Sample Blog using the Content API.",
+  "main": "index.js",
+  "engines": {
+    "node": "0.10.22",
+    "npm": "1.3.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d1b1/content-sample-blog.git"
+  },
+  "keywords": [
+    "Blog",
+    "Content",
+    "API",
+    "JSON",
+    "Rest"
+  ],
+  "author": "Stephan Smith",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/d1b1/content-sample-blog/issues"
+  },
+  "homepage": "https://github.com/d1b1/content-sample-blog",
+  "dependencies": {
+    "express": "~3.4.8",
+    "request": "~2.34.0",
+    "jade": "~1.1.5",
+    "optimist": "~0.6.1"
+  }
+}
