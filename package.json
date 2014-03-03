@@ -31,6 +31,7 @@
     "express": "~3.4.8",
     "request": "~2.34.0",
     "jade": "~1.1.5",
-    "optimist": "~0.6.1"
+    "optimist": "~0.6.1",
+    "express-asset-manager": "~0.2.2"
   }
 }
