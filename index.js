@@ -5,12 +5,18 @@ var argv    = require('optimist').argv;
 var port = argv.port || process.env.PORT || 5000;
 var app = express()
 
-app.set("views", __dirname + "/views");
-app.set("view options", { layout: false, pretty: true });
-app.set("view engine", "jade");
+app.set("views", __dirname + "/views")
+app.set("view options", { layout: false, pretty: true })
+app.set("view engine", "jade")
+app.use(express.bodyParser())
+app.use(express.json())
+app.use(express.urlencoded())
+app.use(express.methodOverride())
+
+var domain = 'http://tosheroon.herokuapp.com';
 
 app.get('/', function(req, res) {
-    var opts = {url: 'http://tosheroon.herokuapp.com/blog/search', json:true}
+    var opts = {url: domain + '/blog/search', json:true}
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         res.render('posts', { blogs: body })
@@ -19,12 +25,37 @@ app.get('/', function(req, res) {
 })
 
 app.get('/post/:id', function(req, res) {
-    var opts = { url: 'http://tosheroon.herokuapp.com/blog/' + req.params.id, json:true}
+    var opts = { url: domain + '/blog/' + req.params.id, json:true}
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         res.render('post', { blog: body })
 	  }
 	})
+})
+
+app.get('/post/:id/edit', function(req, res) {
+    var opts = { url: domain + '/blog/' + req.params.id, json:true}
+	request(opts, function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+        res.render('form', { blog: body })
+	  }
+	})
+})
+
+app.post('/post/:id', function(req, res) {
+
+  var data = req.body
+  delete req.body._id
+
+  var opts = {
+  	url: domain + '/blog/' + req.params.id,
+  	form: data
+  }
+
+  request.put(opts, function (e, r, body) {
+    res.redirect('/')
+  })
+
 })
 
 app.use(app.router);
