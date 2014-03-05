@@ -4,6 +4,15 @@ block content
 
   h2 List of Blogs
 
+  ul.pager
+    - if (blogs.prev)
+      li.previous.disabled
+       a(href="/page/#{blogs.rev}") ← Previous
+
+    - if (blogs.next)
+      li.next
+       a(href="/page/#{blogs.next}") Next →
+
   each blog in blogs.results
     h4 #{blog.title} - #{blog.author}
     p #{blog.body}

@@ -1,5 +1,5 @@
 
 heroku:
 	export NODE_ENV="development"; \
-	export API_URL="http://localhost:3000"; \
+	export API_URL="http://tosheroon.herokuapp.com"; \
 	nodemon index.js --ignore builtAssets

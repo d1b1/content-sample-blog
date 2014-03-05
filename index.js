@@ -16,12 +16,22 @@ app.use(express.methodOverride())
 var domain = process.env.API_URL || 'http://tosheroon.herokuapp.com';
 
 app.get('/', function(req, res) {
-    var opts = {url: domain + '/blog/search', json: true}
+    var opts = { url: domain + '/blog/search', json: true }
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
+        console.log(body)
         res.render('posts', { blogs: body })
 	  }
 	})
+})
+
+app.get('/page/:page', function(req, res) {
+    var opts = { url: domain + '/blog/search?page=' + req.params.page, json: true }
+    request(opts, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.render('posts', { blogs: body })
+      }
+    })
 })
 
 app.get('/post/:id', function(req, res) {
@@ -98,8 +108,6 @@ var assetManagerConfig = {
 };
 
 app.use(require("express-asset-manager")(assets, assetManagerConfig));
-
-console.log(process.env.NODE_ENV)
 
 app.configure('development', function() {
     app.use('/assets', express.static(__dirname + '/assets'))
