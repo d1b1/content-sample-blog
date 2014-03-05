@@ -13,10 +13,10 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(express.methodOverride())
 
-var domain = 'http://tosheroon.herokuapp.com';
+var domain = process.env.API_URL || 'http://tosheroon.herokuapp.com';
 
 app.get('/', function(req, res) {
-    var opts = {url: domain + '/blog/search', json:true}
+    var opts = {url: domain + '/blog/search', json: true}
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         res.render('posts', { blogs: body })
@@ -25,7 +25,7 @@ app.get('/', function(req, res) {
 })
 
 app.get('/post/:id', function(req, res) {
-    var opts = { url: domain + '/blog/' + req.params.id, json:true}
+    var opts = { url: domain + '/blog/' + req.params.id, json: true}
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         res.render('post', { blog: body })
@@ -34,7 +34,7 @@ app.get('/post/:id', function(req, res) {
 })
 
 app.get('/post/:id/edit', function(req, res) {
-    var opts = { url: domain + '/blog/' + req.params.id, json:true}
+    var opts = { url: domain + '/blog/' + req.params.id, json: true}
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         res.render('form', { blog: body })
@@ -94,10 +94,12 @@ var assetManagerConfig = {
     rootRoute   : "/static",
     srcDir      : "./assets",
     buildDir    : "./builtAssets",
-    process     : "true"
+    process     : "false"
 };
 
 app.use(require("express-asset-manager")(assets, assetManagerConfig));
+
+console.log(process.env.NODE_ENV)
 
 app.configure('development', function() {
     app.use('/assets', express.static(__dirname + '/assets'))
@@ -110,3 +112,4 @@ app.configure('production', function() {
 
 app.listen(port)
 console.log('Starting Sample Blog on ' + port)
+console.log('Using ' + domain)
