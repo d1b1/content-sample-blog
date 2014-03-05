@@ -16,7 +16,7 @@ app.use(express.methodOverride())
 var domain = process.env.API_URL || 'http://tosheroon.herokuapp.com';
 
 app.get('/', function(req, res) {
-    var opts = { url: domain + '/blog/search', json: true }
+    var opts = { url: domain + '/blog/search?size=25', json: true }
 	request(opts, function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
         console.log(body)
@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
 })
 
 app.get('/page/:page', function(req, res) {
-    var opts = { url: domain + '/blog/search?page=' + req.params.page, json: true }
+    var opts = { url: domain + '/blog/search?size=25&page=' + req.params.page, json: true }
     request(opts, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.render('posts', { blogs: body })
